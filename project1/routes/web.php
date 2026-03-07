@@ -1,19 +1,29 @@
 <?php
 
+use App\Http\Controllers\CalculateController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', [PageController::class, 'welcome']);
 
-Route::get('/home/{id}/{name}', function ($id, $name) {
-    return "<marquee><h1>Home pagers " . $id .  " " . $name ." </h1></marquee>";
-});
+    Route::get('/home/{id}/{name}', [PageController::class, 'home'])->name('home');
 
-Route::get('aboutMe', function () {
-    return "About";
-})->name('about');
+    Route::get('/aboutMe/{id}/{name}', [PageController::class, 'about'])->name('about');
 
-Route::get('contact', function () {
-    return "<a href = '". route('about') ."' > Go to About </a>";
-});
+    Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+
+    Route::get('compute', [CalculateController::class, 'index']);
+
+
+    Route::group(['prefix' => 'user'], function(){
+        Route::get(uri: '/{id}', action: [UserController::class, 'indexUserById']);
+
+        Route::get(uri: '/add/{id}', action: [UserController::class, 'addUserById']);
+
+        Route::get(uri: '/delete/{id}', action: [UserController::class, 'deleteUserById']);
+
+        Route::get('/edit/{id}', action: [UserController::class, 'editUserById']);
+    });
+
+    Route::fallback([PageController::class, 'fallback']);
