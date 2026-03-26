@@ -9,6 +9,7 @@
 <body>
     <h1>Calculate {{ $sum }}</h1>
     <h1>Difference: {{ $difference }}</h1>
-    <h1>Product: {{ $product . $sum}}</h1>
+    <h1>Product: {{ $product }}</h1>
+    <h1>Quotient: {{ $quotient }}</h1>
 </body>
 </html>
