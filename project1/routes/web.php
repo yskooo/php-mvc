@@ -27,3 +27,5 @@ use Illuminate\Support\Facades\Route;
     });
 
     Route::fallback([PageController::class, 'fallback']);
+
+    Route::get('compute/{num1}/{num2}', [CalculateController::class, 'index'])->name('compute');
