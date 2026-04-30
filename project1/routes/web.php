@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
     Route::get('/', [PageController::class, 'welcome']);
+    Route::view('/assignment', 'assignment');
 
     Route::get('/home/{id}/{name}', [PageController::class, 'home'])->name('home');
 
