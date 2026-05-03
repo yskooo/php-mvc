@@ -10,7 +10,7 @@ use Throwable;
 
 class CalculateController extends Controller
 {
-    public function index($num1, $num2){
+    public function index($num1 = 0, $num2 = 0){
 
     Log::info('================START INDEX=================');
 
@@ -18,20 +18,21 @@ class CalculateController extends Controller
         Log::info('sum = ' . $sum);
 
         $difference = $this->difference($num1, $num2);
-        Log::critical('difference = ' . $difference);
+        Log::info('difference = ' . $difference);
 
         $util = new UtilController();
+        $product = 0;
+        $quotient = 0;
         try {
             $product = $util->product($num1, $num2);
-            Log::alert('product = ' . $product);
+            Log::info('product = ' . $product);
 
-            $quotient = $util->quotient($num1, $num2);
-            Log::emergency('quotient = ' . $quotient);
+            $quotient = ($num2 != 0) ? $util->quotient($num1, $num2) : 'Undefined';
+            Log::info('quotient = ' . $quotient);
         } catch (Throwable $e) {
             Log::error('ERROR :' . $e->getMessage());
         }
 
-        $product = $util->product($num1, $num2);
         Log::debug('product = ' . $product);
 
     Log::info('================END INDEX=================');
